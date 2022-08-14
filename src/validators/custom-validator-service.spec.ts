@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-
+import { FormControl, FormGroup } from '@angular/forms';
 import { CustomValidatorService } from './custom-validator-service';
 
 describe('CustomValidatorServiceService', () => {
@@ -47,44 +46,25 @@ describe('CustomValidatorServiceService', () => {
   });
 
   describe('passwordContains', () => {
-    it('should have "passwordContains" error when first name is part of password', () => {
-      const frmGrp = new FormGroup({
-        firstName: new FormControl(''),
-        lastName: new FormControl(''),
+    let frmGrp: FormGroup;
+    beforeEach(() => {
+      frmGrp = new FormGroup({
+        firstName: new FormControl('Thomas'),
+        lastName: new FormControl('Shelby'),
         password: new FormControl(''),
       }, service.passwordContains());
-      frmGrp.setValue({
-        firstName: 'Thomas',
-        lastName: 'Shelby',
-        password: 'abcdefThoMas'
-      });
+    });
+    it('should have "passwordContains" error when first name is part of password', () => {
+      frmGrp.patchValue({ password: 'abcdefThoMas' });
       expect(frmGrp?.errors?.['passwordContains']).toBe(true);
     });
 
     it('should have "passwordContains" error when last name is part of password', () => {
-      const frmGrp = new FormGroup({
-        firstName: new FormControl(''),
-        lastName: new FormControl(''),
-        password: new FormControl(''),
-      }, service.passwordContains());
-      frmGrp.setValue({
-        firstName: 'Thomas',
-        lastName: 'Shelby',
-        password: 'abcdefSHELBY'
-      });
+      frmGrp.setValue({ password: 'abcdefSHELBY' });
       expect(frmGrp?.errors?.['passwordContains']).toBe(true);
     });
     it('should be valid when first name, last name both are not part of password', () => {
-      const frmGrp = new FormGroup({
-        firstName: new FormControl(''),
-        lastName: new FormControl(''),
-        password: new FormControl(''),
-      }, service.passwordContains());
-      frmGrp.setValue({
-        firstName: 'Thomas',
-        lastName: 'Shelby',
-        password: 'abcdefA1'
-      });
+      frmGrp.setValue({ password: 'abcdefA1' });
       expect(frmGrp?.errors?.['passwordContains']).toBe(undefined);
     });
   });

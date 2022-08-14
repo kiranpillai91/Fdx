@@ -10,6 +10,7 @@ import { SIGN_UP_URL } from '../constants/endpoints';
 describe('SignUpService', () => {
   let service: SignUpService;
   let controller: HttpTestingController;
+  const mockSignUpFormValue = { firstName: "Bob", lastName: "T", email: "test@fdx.com", password: "abcdeF12" };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,11 +25,11 @@ describe('SignUpService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('', () => {
-    it('Sign Up', () => {
+  describe('Call to signUp endpoint', () => {
+    it('When signUp is success', () => {
       let actualSignUp: SignUp | undefined;
-      const signUpResponse = { firstName: "Bob", lastName: "T", email: "test@fdx.com", password: "abcdeF12" };
-      service.signUp({ firstName: "Bob", lastName: "T", email: "test@fdx.com", password: "abcdeF12" }).subscribe(
+      const signUpResponse = mockSignUpFormValue;
+      service.signUp(mockSignUpFormValue).subscribe(
         (response) => {
           actualSignUp = response;
         }
@@ -39,12 +40,12 @@ describe('SignUpService', () => {
       expect(actualSignUp).toEqual(signUpResponse);
     });
 
-    it('passes through  errors', () => {
+    it('When signUp is having error', () => {
       const status = 500;
       const statusText = 'Internal Server Error';
       const errorEvent = new ErrorEvent('API error');
       let actualError: HttpErrorResponse | undefined;
-      service.signUp({ firstName: "Bob", lastName: "T", email: "test@fdx.com", password: "abcdeF12" }).subscribe(
+      service.signUp(mockSignUpFormValue).subscribe(
         () => {},
         (error) => {
           actualError = error;

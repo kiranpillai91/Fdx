@@ -9,16 +9,13 @@ import { SignUpService } from '../../services/sign-up.service';
   templateUrl: './sign-up-form.component.html',
   styleUrls: ['./sign-up-form.component.css']
 })
-export class SignUpFormComponent implements OnInit {
+export class SignUpFormComponent {
 
   isLoading = false;
-
-  constructor(private signUpService: SignUpService, private customValidatorService: CustomValidatorService) { }
-
   signUpForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    email: new FormControl('',[ Validators.required,Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"),
+    email: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"),
     this.customValidatorService.emailDomainValidator()]),
     password: new FormControl('', [Validators.required, this.customValidatorService.passwordPatternValidator()])
   },
@@ -26,15 +23,14 @@ export class SignUpFormComponent implements OnInit {
       validators: [this.customValidatorService.passwordContains()]
     });
 
-  ngOnInit(): void {
-  }
+  constructor(private signUpService: SignUpService, private customValidatorService: CustomValidatorService) { }
 
   onSignUp = () => {
     this.isLoading = true;
     this.signUpService.signUp(this.signUpForm.value)
       .subscribe(() => {
         this.isLoading = false;
-      },() => {
+      }, () => {
         this.isLoading = false;
       });
   }

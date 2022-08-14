@@ -58,7 +58,9 @@ describe('SignUpFormComponent', () => {
       setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");
       expect(component.signUpForm.valid).toEqual(true);
       const el = fixture.debugElement.query(By.css('[data-testid="sign-up-form"]'));
+      const onSignUpSpy = spyOn(component,'onSignUp');
       el.triggerEventHandler('ngSubmit',null);
+      expect(onSignUpSpy).toHaveBeenCalled();
       expect(signUpServiceSpy.signUp).toHaveBeenCalledWith({
         firstName: "Bob",
         lastName: "T",

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { RESTRICTED_EMAIL_DOMAIN } from '../constants/global';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,9 @@ export class CustomValidatorService {
   }
 
   passwordContains(): ValidatorFn {
-    return (formGroup: AbstractControl) : { [key: string]: boolean } | null => {
+    return (formGroup: AbstractControl): { [key: string]: boolean } | null => {
       const passwordControl = formGroup.get('password')?.value.toLowerCase();
-      if(!passwordControl) {
+      if (!passwordControl) {
         return null;
       }
       const firstNameControl = formGroup.get('firstName')?.value.toLowerCase();
@@ -31,6 +32,22 @@ export class CustomValidatorService {
         return { passwordContains: true };
       } else if (lastNameControl && passwordControl.indexOf(lastNameControl) !== -1) {
         return { passwordContains: true };
+      }
+      return null;
+    };
+  }
+
+  emailDomainValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      if (!control.value) {
+        return null;
+      }
+      for (let domainIndex = 0; domainIndex < RESTRICTED_EMAIL_DOMAIN.length; domainIndex++) {
+        const currentEmailDomain = RESTRICTED_EMAIL_DOMAIN[domainIndex];
+        const regex = new RegExp(`^[a-z0-9._%+-]+@${currentEmailDomain}`);
+        if (regex.test(control.value)) {
+          return { invalidEmailDomain: true };
+        }
       }
       return null;
     };

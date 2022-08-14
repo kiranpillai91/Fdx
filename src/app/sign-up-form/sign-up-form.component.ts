@@ -18,7 +18,8 @@ export class SignUpFormComponent implements OnInit {
   signUpForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
+    email: new FormControl('',[ Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
+    this.customValidatorService.emailDomainValidator()]),
     password: new FormControl('', [Validators.required, this.customValidatorService.passwordPatternValidator()])
   },
     {
@@ -32,6 +33,8 @@ export class SignUpFormComponent implements OnInit {
     this.loader = true;
     this.signUpService.signUp(this.signUpForm.value)
       .subscribe(() => {
+        this.loader = false;
+      },() => {
         this.loader = false;
       });
   }

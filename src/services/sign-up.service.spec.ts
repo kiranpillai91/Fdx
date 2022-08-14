@@ -50,7 +50,7 @@ describe('SignUpService', () => {
           actualError = error;
         }
       );
-      controller.expectOne("https://demo-api.now.sh/users").error(errorEvent, { status, statusText });
+      controller.expectOne(SIGN_UP_URL).error(errorEvent, { status, statusText });
       if (!actualError) {
         throw new Error('Error needs to be defined');
       }

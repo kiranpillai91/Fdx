@@ -43,9 +43,9 @@ export class CustomValidatorService {
         return null;
       }
       for (let domainIndex = 0; domainIndex < RESTRICTED_EMAIL_DOMAIN.length; domainIndex++) {
-        const currentEmailDomain = RESTRICTED_EMAIL_DOMAIN[domainIndex];
+        const currentEmailDomain = RESTRICTED_EMAIL_DOMAIN[domainIndex].toLowerCase();
         const regex = new RegExp(`^[a-z0-9._%+-]+@${currentEmailDomain}`);
-        if (regex.test(control.value)) {
+        if (regex.test(control.value.toLowerCase())) {
           return { invalidEmailDomain: true };
         }
       }

@@ -1,5 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { delay, of } from 'rxjs';
 import { SignUpService } from '../../services/sign-up.service';
 
 import { SignUpFormComponent } from './sign-up-form.component';
@@ -41,22 +42,25 @@ describe('SignUpFormComponent', () => {
   });
 
 
-  describe('Sign up form validations', () => {
-    it('All fields required', () => {
+  describe('Validating Sign Up Form', () => {
+    it('form should be invalid if no field value entered', () => {
       setFormValue();
       expect(component.signUpForm.valid).toEqual(false);
     });
-    it('should be valid if form value is valid', () => {
+    it('form should be valid if form values are valid', () => {
       setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");
       expect(component.signUpForm.valid).toEqual(true);
     });
   });
 
-  describe('Sign up form submit', () => {
-    it('should be valid if form value is valid', () => {
+  describe('Submitting Sign Up Form', () => {    
+    it('should call sign up service when form is valid', () => {
       setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");
       expect(component.signUpForm.valid).toEqual(true);
-      component.onSubmit();
+      const el = fixture.debugElement.query(By.css('[data-testid="sign-up-form"]'));
+      const submitSpy = spyOn(component,'onSubmit');
+      el.triggerEventHandler('ngSubmit',null);
+      expect(submitSpy).toHaveBeenCalled();
       expect(signUpServiceSpy.signUp).toHaveBeenCalledWith({
         firstName: "Bob",
         lastName: "T",
@@ -64,5 +68,17 @@ describe('SignUpFormComponent', () => {
         password: "abcdeF12"
       });
     });
+    it('should show loader when for is submitting and hide loader on success', fakeAsync(() => {
+      setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");   
+      signUpServiceSpy.signUp.and.callFake(() => {
+        return of([{postId : 100}]).pipe(delay(2000));
+      });      
+      const el = fixture.debugElement.query(By.css('[data-testid="sign-up-form"]'));
+      el.triggerEventHandler('ngSubmit',null);
+      tick(1000);
+      expect(component.isLoading).toEqual(true);
+      tick(1000);
+      expect(component.isLoading).toEqual(false);
+    }));
   });
 });

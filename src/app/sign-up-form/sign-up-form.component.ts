@@ -11,7 +11,7 @@ import { SignUpService } from '../../services/sign-up.service';
 })
 export class SignUpFormComponent implements OnInit {
 
-  loader = false;
+  isLoading = false;
 
   constructor(private signUpService: SignUpService, private customValidatorService: CustomValidatorService) { }
 
@@ -30,12 +30,12 @@ export class SignUpFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loader = true;
+    this.isLoading = true;
     this.signUpService.signUp(this.signUpForm.value)
       .subscribe(() => {
-        this.loader = false;
+        this.isLoading = false;
       },() => {
-        this.loader = false;
+        this.isLoading = false;
       });
   }
 

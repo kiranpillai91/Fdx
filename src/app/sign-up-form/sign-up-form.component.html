@@ -2,7 +2,7 @@
     <div class="d-flex align-items-center justify-content-center row" style="height: 100vh;">
         <div class="col-6">
             <h2 class="mb-3">Sign Up</h2>
-            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" data-testid="sign-up-form">
                 <div class="form-group mb-3">
                     <input type="text" formControlName="firstName" class="form-control" id="firstName"
                         placeholder="Enter First Name">
@@ -59,7 +59,7 @@
                     </ng-template>
                 </div>
                 <button class="btn btn-primary mt-3" type="submit" [disabled]="signUpForm.invalid">
-                    <ng-container *ngIf="loader;else signUp"> <span class="spinner-border spinner-border-sm"
+                    <ng-container *ngIf="isLoading;else signUp"> <span class="spinner-border spinner-border-sm"
                             role="status" aria-hidden="true"></span>
                         Signing up...
                     </ng-container>

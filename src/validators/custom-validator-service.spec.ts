@@ -60,11 +60,11 @@ describe('CustomValidatorServiceService', () => {
     });
 
     it('should have "passwordContains" error when last name is part of password', () => {
-      frmGrp.setValue({ password: 'abcdefSHELBY' });
+      frmGrp.patchValue({ password: 'abcdefSHELBY' });
       expect(frmGrp?.errors?.['passwordContains']).toBe(true);
     });
     it('should be valid when first name, last name both are not part of password', () => {
-      frmGrp.setValue({ password: 'abcdefA1' });
+      frmGrp.patchValue({ password: 'abcdefA1' });
       expect(frmGrp?.errors?.['passwordContains']).toBe(undefined);
     });
   });

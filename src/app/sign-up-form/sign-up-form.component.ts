@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { CustomValidatorService } from '../custom-validator-service';
 import { SignUpService } from '../sign-up.service';

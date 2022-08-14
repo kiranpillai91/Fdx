@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SIGN_UP_URL } from '../constants/endpoints';
 
 export interface SignUp { 
   firstName: string; 
@@ -23,11 +24,8 @@ export class SignUpService {
     })
   };
 
-  signUp(signUp: any): Observable<SignUp> {
-    return this.http.post<SignUp>('https://demo-api.now.sh/users', signUp, this.httpOptions)
-      .pipe(
-      // catchError(this.handleError('addHero', signUp))
-    );
+  signUp(signUpReq: any): Observable<SignUp> {
+    return this.http.post<SignUp>(`${SIGN_UP_URL}`, signUpReq);
   }
 
 }

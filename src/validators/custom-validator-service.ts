@@ -14,7 +14,7 @@ export class CustomValidatorService {
       if (!control.value) {
         return null;
       }
-      const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+      const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$');
       const valid = regex.test(control.value);
       return valid ? null : { invalidPassword: true };
     };

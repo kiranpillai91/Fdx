@@ -53,12 +53,12 @@ describe('SignUpFormComponent', () => {
     });
   });
 
-  describe('Submitting Sign Up Form', () => {    
+  describe('Submitting Sign Up Form', () => {
     it('should call sign up service when form is valid', () => {
       setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");
       expect(component.signUpForm.valid).toEqual(true);
       const el = fixture.debugElement.query(By.css('[data-testid="sign-up-form"]'));
-      el.triggerEventHandler('ngSubmit',null);
+      el.triggerEventHandler('ngSubmit', null);
       expect(signUpServiceSpy.signUp).toHaveBeenCalledWith({
         firstName: "Bob",
         lastName: "T",
@@ -67,12 +67,12 @@ describe('SignUpFormComponent', () => {
       });
     });
     it('should show loader when for is submitting and hide loader on success', fakeAsync(() => {
-      setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");   
+      setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");
       signUpServiceSpy.signUp.and.callFake(() => {
-        return of([{postId : 100}]).pipe(delay(2000));
-      });      
+        return of([{ postId: 100 }]).pipe(delay(2000));
+      });
       const el = fixture.debugElement.query(By.css('[data-testid="sign-up-form"]'));
-      el.triggerEventHandler('ngSubmit',null);
+      el.triggerEventHandler('ngSubmit', null);
       tick(1000);
       expect(component.isLoading).toEqual(true);
       tick(1000);

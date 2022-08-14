@@ -2,7 +2,7 @@
     <div class="d-flex align-items-center justify-content-center row" style="height: 100vh;">
         <div class="col-6">
             <h2 class="mb-3">Sign Up</h2>
-            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" data-testid="sign-up-form">
+            <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()" data-testid="sign-up-form">
                 <div class="form-group mb-3">
                     <input type="text" formControlName="firstName" class="form-control" id="firstName"
                         placeholder="Enter First Name">

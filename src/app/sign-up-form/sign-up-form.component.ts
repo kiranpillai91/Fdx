@@ -29,7 +29,7 @@ export class SignUpFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  onSignUp = () => {
     this.isLoading = true;
     this.signUpService.signUp(this.signUpForm.value)
       .subscribe(() => {

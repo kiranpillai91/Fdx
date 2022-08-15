@@ -1,17 +1,18 @@
 <div class="row row-cols-1 w-80-p m-0-a h-100-p background-white-color">
     <div class="col-sm-7 background-image-signUp"></div>
     <div class="col-sm-5 mt-3">
-        <h3 class="mb-2">Sign Up</h3>
-        <p class="mb-4">
+        <h3 class="mb-2 text-center">Sign Up</h3>
+        <p class="mb-4 text-center">
             A few clicks away from creating the account.
         </p>
-        
+
         <div *ngIf="isServiceError" class="toast align-items-center mb-4">
             <div class="d-flex">
-                <div class="toast-body"  data-testid="toast-body-testId">
+                <div class="toast-body" data-testid="toast-body-testId">
                     Something went wrong.
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" (click)="closeToast()"></button>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"
+                    (click)="closeToast()"></button>
             </div>
         </div>
         <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()" data-testid="sign-up-form">
@@ -69,15 +70,17 @@
                     </small>
                 </ng-template>
             </div>
-            <button class="btn btn-primary mt-3" type="submit" [disabled]="signUpForm.invalid">
-                <ng-container *ngIf="isLoading;else signUp"> <span class="spinner-border spinner-border-sm"
-                        role="status" aria-hidden="true"></span>
-                    Signing up...
-                </ng-container>
-                <ng-template #signUp>
-                    Sign Up
-                </ng-template>
-            </button>
+            <div class="text-center">
+                <button class="btn btn-primary mt-3" type="submit" [disabled]="signUpForm.invalid">
+                    <ng-container *ngIf="isLoading;else signUp"> <span class="spinner-border spinner-border-sm"
+                            role="status" aria-hidden="true"></span>
+                        Signing up...
+                    </ng-container>
+                    <ng-template #signUp>
+                        Sign Up
+                    </ng-template>
+                </button>
+            </div>
         </form>
     </div>
 </div>

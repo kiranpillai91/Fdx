@@ -1,4 +1,4 @@
-# SignUp
+# Sign Up
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.2.
 
@@ -18,7 +18,10 @@ Install the `npm` packages described in the `package.json` and verify that it wo
 npm install
 ```
 
-
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```shell
+npm start
+```
+
+The npm start the angular app. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

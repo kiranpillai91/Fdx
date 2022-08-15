@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { delay, of } from 'rxjs';
+import { delay, of, throwError } from 'rxjs';
 import { SignUpService } from '../../services/sign-up.service';
 
 import { SignUpFormComponent } from './sign-up-form.component';
@@ -77,6 +77,15 @@ describe('SignUpFormComponent', () => {
       expect(component.isLoading).toEqual(true);
       tick(1000);
       expect(component.isLoading).toEqual(false);
+    }));
+    it('should show toast on service error', (() => {
+      setFormValue("Bob", "T", "test@fdx.com", "abcdeF12");
+      signUpServiceSpy.signUp.and.returnValue(throwError(() => new Error('API ERROR')));
+      const el = fixture.debugElement.query(By.css('[data-testid="sign-up-form"]'));
+      el.triggerEventHandler('ngSubmit', null);
+      const toastEl = fixture.debugElement.query(By.css('[data-testid="toast-body-testId"]'));
+      expect(toastEl).toBeDefined();
+      expect(component.isServiceError).toBe(true);
     }));
   });
 });

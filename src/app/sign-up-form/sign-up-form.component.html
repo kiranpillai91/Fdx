@@ -8,7 +8,7 @@
         
         <div *ngIf="isServiceError" class="toast align-items-center mb-4">
             <div class="d-flex">
-                <div class="toast-body">
+                <div class="toast-body"  data-testid="toast-body-testId">
                     Something went wrong.
                 </div>
                 <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" (click)="closeToast()"></button>

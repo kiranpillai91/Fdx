@@ -25,3 +25,18 @@ npm start
 ```
 
 The npm start the angular app. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+
+## Testing Scripts
+
+```shell
+npm test
+```
+Builds the application and runs tests
+
+
+```shell
+ng test --no-watch --code-coverage
+```
+
+Script to get code coverage

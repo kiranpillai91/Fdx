@@ -1,0 +1,11 @@
+.background-image-signUp {
+    background-image: url('https://images.pexels.com/photos/1797428/pexels-photo-1797428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+}
+
+.btn-primary {
+    font-size: 19px;
+    color: #fff;
+    background-color: #ff6200;
+    border-radius: 0;
+    text-decoration: none;
+}

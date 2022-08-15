@@ -12,6 +12,8 @@ import { SignUpService } from '../../services/sign-up.service';
 export class SignUpFormComponent {
 
   isLoading = false;
+  isServiceError = false;
+
   signUpForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -31,9 +33,13 @@ export class SignUpFormComponent {
       .subscribe(() => {
         this.isLoading = false;
       }, () => {
+        this.isServiceError = true;
         this.isLoading = false;
       });
   }
 
+  closeToast = () => {
+    this.isServiceError = false;
+  }
 
 }

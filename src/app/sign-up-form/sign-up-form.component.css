@@ -10,4 +10,18 @@
     background-color: #ff6200;
     border-radius: 0;
     text-decoration: none;
+    border-color: #ff6200;
+}
+
+.btn:focus {
+    box-shadow: none;
+    border-color: #ff6200;
+}
+
+.toast {
+    color: red;
+    display: block;
+    background-color: lightgray;
+    font-weight: 500;
+    width: 100%;
 }

@@ -1,7 +1,19 @@
-<div class="row row-cols-1 w-80-p m-0-a h-100-p background-cadetblue-color">
+<div class="row row-cols-1 w-80-p m-0-a h-100-p background-white-color">
     <div class="col-sm-7 background-image-signUp"></div>
-    <div class="col-sm-5 mt-5">
-        <h3 class="mb-4 mt-5">Sign Up</h3>
+    <div class="col-sm-5 mt-3">
+        <h3 class="mb-2">Sign Up</h3>
+        <p class="mb-4">
+            A few clicks away from creating the account.
+        </p>
+        
+        <div *ngIf="isServiceError" class="toast align-items-center mb-4">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Something went wrong.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" (click)="closeToast()"></button>
+            </div>
+        </div>
         <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()" data-testid="sign-up-form">
             <div class="form-group mb-3">
                 <input type="text" formControlName="firstName" class="form-control" id="firstName"
